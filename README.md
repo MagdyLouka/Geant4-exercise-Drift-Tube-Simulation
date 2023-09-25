@@ -25,4 +25,4 @@ To compile the project
 which makes an excutable named DC, to run the simulation:
 > ./DC
 
-![alt text](https://github.com/MagdyLouka/Geant4-exercise-Drift-Tube-Simulation/blob/Pics/DC_1.jpg?raw=true)
+(https://github.com/MagdyLouka/Geant4-exercise-Drift-Tube-Simulation/blob/Pics/DC_1.jpg?raw=true)
