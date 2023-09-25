@@ -1,5 +1,8 @@
 # Geant4-exercise-Drift-Tube-Simulation
 This is a tutorial in using the Geant4 tool kit to make a simulation of a multi-wire Drift tube.
+The tube is a 30 cm length, made up of Aluminium and filled with Helium He - Isobutane C4H10 gas mixture 90/10 % respectively. Four golden sense wires are implemented each has a radius of 20 micro-meters.
+The chamber is radiated with a beam of muons with a momentum of 100 GeV. 
+
 The basic CMake configuration options are defined in CMakeLists.txt file
 The main project macro is DC.cc in the source codes directory "/src"
 three user classes are driven from the Geant4 base claesses and are defined in "/headers" directory which are:-
