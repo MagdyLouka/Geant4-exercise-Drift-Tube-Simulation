@@ -26,3 +26,4 @@ which makes an excutable named DC, to run the simulation:
 > ./DC
 
 ![alt text](https://github.com/MagdyLouka/Geant4-exercise-Drift-Tube-Simulation/blob/main/Pics/DC_1.png)
+![alt text](https://github.com/MagdyLouka/Geant4-exercise-Drift-Tube-Simulation/blob/main/Pics/DC_2.png)
