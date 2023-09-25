@@ -15,6 +15,7 @@ that is used to define the particles and physics processes included in the simul
 > class MyGeneratorAction : public G4VUserPrimaryGeneratorAction
 
 To be used in the process of generation of particles through the G4ParticleGun tool.
+
 To compile the project
 
 > cmake ../
