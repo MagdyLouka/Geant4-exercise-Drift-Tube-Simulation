@@ -1,0 +1,4 @@
+/home/cms/applications/geant4/projects/DriftTues/build/CMakeFiles/DC.dir
+/home/cms/applications/geant4/projects/DriftTues/build/CMakeFiles/Simulation.dir
+/home/cms/applications/geant4/projects/DriftTues/build/CMakeFiles/edit_cache.dir
+/home/cms/applications/geant4/projects/DriftTues/build/CMakeFiles/rebuild_cache.dir

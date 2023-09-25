@@ -1,0 +1,36 @@
+#include <iostream>
+#include "G4RunManager.hh"
+#include "G4UImanager.hh"
+#include "G4VisManager.hh"
+#include "G4VisExecutive.hh"
+#include "G4UIExecutive.hh"
+
+#include "DC_Construction.hh"
+#include "DC_Physics.hh"
+#include "DC_Action.hh"
+
+
+int main(int argc, char** argv)
+{
+  G4RunManager *runManager = new G4RunManager();
+  // initializing the needed user classes
+  runManager->SetUserInitialization(new DCDetectorConstruction());
+  runManager->SetUserInitialization(new DCPhysicsList());
+  runManager->SetUserInitialization(new DCAction());
+  
+  runManager->Initialize();
+  
+  G4UIExecutive *ui = new G4UIExecutive(argc, argv);
+
+  G4VisManager *visManager = new G4VisExecutive();
+  visManager->Initialize();
+
+  G4UImanager *UImanager = G4UImanager::GetUIpointer();
+
+  //excute the macro to control visualization
+  UImanager->ApplyCommand("/control/execute /home/cms/applications/geant4/projects/DC4/vis.mac");
+
+  ui->SessionStart();
+  
+  return 0;
+}
