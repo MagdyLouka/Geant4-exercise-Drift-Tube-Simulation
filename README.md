@@ -15,6 +15,8 @@ that is used to define the particles and physics processes included in the simul
 To be used in the process of generation of particles through the G4ParticleGun tool.
 To compile the project
 > cmake ../
+
 > make
+
 which makes an excutable named DC, to run the simulation:
 > ./DC
