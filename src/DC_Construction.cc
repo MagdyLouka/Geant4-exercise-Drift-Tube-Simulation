@@ -1,5 +1,4 @@
 #include "DC_Construction.hh"
-//#include "DC_SensitiveDetector.hh"
 #include "G4NistManager.hh"
 #include "G4Box.hh"
 #include "G4Cons.hh"
@@ -14,7 +13,6 @@
 #include "G4UniformMagField.hh"
 #include "G4FieldManager.hh"
 #include "G4SDManager.hh"
-//#include "G4VSensitiveDetector.hh"
 #include "G4MultiSensitiveDetector.hh"
 DCDetectorConstruction::DCDetectorConstruction()
 {}
@@ -57,6 +55,7 @@ G4VPhysicalVolume *DCDetectorConstruction::Construct()
   G4Material* GasMix = new G4Material(name="GasMix", density, ncomponents=2, kStateGas, temperature, pressure);
   GasMix->AddMaterial(He, fractionmass=90*perCent);
   GasMix->AddMaterial(C4H10, fractionmass=10*perCent);
+
   //-----------------------------------------
   // my chamber
   //-----------------------------------------
@@ -64,78 +63,21 @@ G4VPhysicalVolume *DCDetectorConstruction::Construct()
   G4double chamber_sizeY = 1.0*env_sizeY;
   G4double chamber_sizeZ  = 1.0*env_sizeZ;
   G4Box* solidChamber = new G4Box("Chamber", 0.5*chamber_sizeX, 0.5*chamber_sizeY, 0.5*chamber_sizeZ); 
-  G4LogicalVolume* logicChamber = new G4LogicalVolume(solidChamber, GasMix, "Chamber");
+  G4LogicalVolume* logicChamber = new G4LogicalVolume(solidChamber, G4_Al, "Chamber");
   G4VPhysicalVolume* physChamber = new G4PVPlacement(0, G4ThreeVector(0,0,0), logicChamber, "Chamber", 0, false, 0, checkOverlaps);
-  //=================================================================================
-  // Chamber's edges
-  //=================================================================================
-  //-------------------------------------------------
-  // Edge 1
-  //-------------------------------------------------
-  G4Material* edge1_mat = nist->FindOrBuildMaterial("G4_Al");
-  G4ThreeVector pos1 = G4ThreeVector(1*cm, 0*cm, 0*cm);
-  G4double e1_x = 0.01*cm;
-  G4double e1_y = 1.*cm;
-  G4double e1_z = 15.*cm;
-  G4Box* solidEdge1 = new G4Box("Edge1", e1_x, e1_y, e1_z);
-  G4LogicalVolume* logicEdge1 = new G4LogicalVolume(solidEdge1, edge1_mat,"Edge1");
-  new G4PVPlacement(0, pos1, logicEdge1, "Edge1", logicChamber, false, 0, checkOverlaps);
  
   //-------------------------------------------------
-  // Edge 2
+  // Gas Volume
   //-------------------------------------------------
-  G4Material* edge2_mat = nist->FindOrBuildMaterial("G4_Al");
-  G4ThreeVector pos2 = G4ThreeVector(-1*cm, 0*cm, 0*cm);
-  G4double e2_x = 0.01*cm;
-  G4double e2_y = 1.0*cm;
-  G4double e2_z = 15.*cm;
-  G4Box* solidEdge2 = new G4Box("Edge2", e2_x, e2_y, e2_z);
-  G4LogicalVolume* logicEdge2 = new G4LogicalVolume(solidEdge2, edge2_mat,"Edge2");
-  new G4PVPlacement(0, pos2, logicEdge2, "Edge2", logicChamber, false, 0, checkOverlaps);
-  //-------------------------------------------------
-  // Edge 3
-  //-------------------------------------------------
-  G4Material* edge3_mat = nist->FindOrBuildMaterial("G4_Al");
-  G4ThreeVector pos3 = G4ThreeVector(0*cm, 1*cm, 0*cm);
-  G4double e3_x = 1.0*cm;
-  G4double e3_y = 0.01*cm;
-  G4double e3_z = 15.*cm;
-  G4Box* solidEdge3 = new G4Box("Edge3", e3_x, e3_y, e3_z);
-  G4LogicalVolume* logicEdge3 = new G4LogicalVolume(solidEdge3, edge3_mat,"Edge3");
-  new G4PVPlacement(0, pos3, logicEdge3, "Edge3", logicChamber, false, 0, checkOverlaps);
-  //-------------------------------------------------
-  // Edge 4
-  //-------------------------------------------------
-  G4Material* edge4_mat = nist->FindOrBuildMaterial("G4_Al");
-  G4ThreeVector pos4 = G4ThreeVector(0*cm, -1*cm, 0*cm);
-  G4double e4_x = 1.0*cm;
-  G4double e4_y = 0.01*cm;
-  G4double e4_z = 15.*cm;
-  G4Box* solidEdge4 = new G4Box("Edge4", e4_x, e4_y, e4_z);
-  G4LogicalVolume* logicEdge4 = new G4LogicalVolume(solidEdge4, edge4_mat,"Edge4");
-  new G4PVPlacement(0, pos4, logicEdge4, "Edge4", logicChamber, false, 0, checkOverlaps);
-  //-------------------------------------------------
-  // Edge 5 / first end cap
-  //-------------------------------------------------
-  G4Material* edge5_mat = nist->FindOrBuildMaterial("G4_Al");
-  G4ThreeVector pos5 = G4ThreeVector(0*cm, 0*cm, -15*cm);
-  G4double e5_x = 1.0*cm;
-  G4double e5_y = 1.0*cm;
-  G4double e5_z = 0.01*cm;
-  G4Box* solidEdge5 = new G4Box("Edge5", e5_x, e5_y, e5_z);
-  G4LogicalVolume* logicEdge5 = new G4LogicalVolume(solidEdge5, edge5_mat,"Edge5");
-  new G4PVPlacement(0, pos5, logicEdge5, "Edge5", logicChamber, false, 0, checkOverlaps);
-  //-------------------------------------------------
-  // Edge 6 / second end cap
-  //-------------------------------------------------
-  G4Material* edge6_mat = nist->FindOrBuildMaterial("G4_Al");
-  G4ThreeVector pos6 = G4ThreeVector(0*cm, 0*cm, -15*cm);
-  G4double e6_x = 1.0*cm;
-  G4double e6_y = 1.0*cm;
-  G4double e6_z = 0.01*cm;
-  G4Box* solidEdge6 = new G4Box("Edge6", e6_x, e6_y, e6_z);
-  G4LogicalVolume* logicEdge6 = new G4LogicalVolume(solidEdge6, edge6_mat,"Edge6");
-  new G4PVPlacement(0, pos6, logicEdge6, "Edge6", logicChamber, false, 0, checkOverlaps);
+  G4Material* Vol_mat = nist->FindOrBuildMaterial(GasMix);
+  G4ThreeVector pos1 = G4ThreeVector(0*cm, 0*cm, 0*cm);
+  G4double vol_x = 0.99*env_sizeX;
+  G4double vol_y = 0.99*env_sizeY;
+  G4double vol_z = 0.99*env_sizeZ;
+  G4Box* solidVol = new G4Box("GasVol", 0.5*vol_x, 0.5*vol_y, 0.5*vol_z);
+  G4LogicalVolume* logicVol = new G4LogicalVolume(solidVol, Vol_mat,"GasVolume");
+  new G4PVPlacement(0, pos1, logicVol, "GasVol", logicVol, false, 0, checkOverlaps);
+  
   //=================================================================================
   // Sense Wires / Anodes (read-out electrodes)
   //=================================================================================
@@ -186,12 +128,3 @@ G4VPhysicalVolume *DCDetectorConstruction::Construct()
  
   return physChamber;
 }
-
-  //---------------------------------------------
-  //setting the sensitive part of the detector
-  //---------------------------------------------
-//void DCDetectorConstruction::ConstructSDandField()
-//{
-//DCSensitive* SenseWire = new DCSensitive("SenseWire");
-//logicDetector->SetSensitiveDetector(SenseWire);
-//}
